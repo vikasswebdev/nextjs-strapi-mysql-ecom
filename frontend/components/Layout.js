@@ -1,8 +1,8 @@
 import Navbar from "./Navbar";
 
-const Layout = ({ children }) => (
+const Layout = ({ children, cart }) => (
   <>
-    <Navbar />
+    <Navbar cart={cart} />
     {children}
   </>
 );
