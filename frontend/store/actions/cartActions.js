@@ -1,0 +1,10 @@
+const cartActions = {
+  ADD_CART: "ADD_CART",
+  INCREASE_CART: "INCREASE_CART",
+  DECREASE_CART: "DECREASE_CART",
+  REMOVE_CART_ITEM: "REMOVE_CART_ITEM",
+  LOAD_CART: "LOAD_CART",
+  TOGGLE_CART: "TOGGLE_CART",
+};
+
+export default cartActions;

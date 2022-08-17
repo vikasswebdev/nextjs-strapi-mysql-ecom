@@ -1,13 +1,13 @@
 import React from "react";
-import Layout from "../../components/Layout";
 import { useRouter } from "next/router";
+import { useData } from "../../store";
+import cartActions from "../../store/actions/cartActions";
 
 const Product = ({ product, addToCart }) => {
-  console.log(product);
-
   const router = useRouter();
-
   const { slug } = router.query;
+
+  const { dispatch } = useData();
 
   return (
     <div>
@@ -161,14 +161,27 @@ const Product = ({ product, addToCart }) => {
               </div>
               <div className="flex">
                 <span className="title-font font-medium text-2xl text-gray-900">
-                  {product.attributes.price}
+                  ₹{product.attributes.price}
                 </span>
-                <div className="flex mx-2 justify-center">
+                <div className="flex mx-2">
                   <button
+                    // onClick={() => {
+                    //   addToCart(slug, 1, product.attributes.price);
+                    // }}
+
                     onClick={() => {
-                      addToCart(slug, 1, product.attributes.price);
+                      dispatch({
+                        type: cartActions.ADD_CART,
+                        payload: {
+                          slug,
+                          product: product.attributes,
+                          quantity: 1,
+                          price: product.attributes.price,
+                        },
+                      });
+                      dispatch({ type: cartActions.TOGGLE_CART });
                     }}
-                    className="flex ml-auto text-white bg-indigo-500 border-0 py-2  mx-3 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                    className="flex ml-auto text-white bg-indigo-500 border-0 py-2 mx-2 px-2 focus:outline-none hover:bg-indigo-600 rounded"
                   >
                     Add to Cart
                   </button>
@@ -176,7 +189,7 @@ const Product = ({ product, addToCart }) => {
                     onClick={() => {
                       router.push("/checkout");
                     }}
-                    className="flex ml-auto text-white bg-indigo-500 border-0 py-2 mx-3 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                    className="flex ml-auto text-white bg-indigo-500 border-0 py-2 mx-2 px-2 focus:outline-none hover:bg-indigo-600 rounded"
                   >
                     Checkout
                   </button>

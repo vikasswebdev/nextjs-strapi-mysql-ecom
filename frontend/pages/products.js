@@ -1,63 +1,56 @@
 import React from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Products = (props) => {
   const { products, cart } = props;
   const router = useRouter();
 
-  const goToProduct = (slug) => {
-    router.push(`/product/${slug}`);
-  };
-
   return (
-    <div>
-      <section className="text-gray-600 body-font">
-        <div className="container px-5 py-24 mx-auto">
-          <div className="flex flex-wrap w-full mb-20">
-            <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
-              <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">
-                Products list - MyShop
-              </h1>
-              <div className="h-1 w-20 bg-indigo-500 rounded" />
-            </div>
-            <p className="lg:w-1/2 w-full leading-relaxed text-gray-500">
-              lets see what we have in stock today ...
-            </p>
-          </div>
-          <div className="flex flex-wrap -m-4">
-            {products.data.map((product) => (
-              <div
-                className="xl:w-1/4 md:w-1/2  p-4"
-                key={product.attributes.slug}
-              >
-                <div className="bg-gray-100 p-6 rounded-lg">
-                  <img
-                    className="h-40 rounded w-full object-cover object-center mb-6"
-                    src={product.attributes.image.data.attributes.name}
-                    alt="content"
-                  />
-                  <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
+    <section className="text-gray-600 body-font">
+      <div className="container px-5 py-24 mx-auto">
+        <div className="flex flex-wrap -m-4">
+          {products.data.map((product) => (
+            <div className="p-4 md:w-1/3" key={product.attributes.slug}>
+              <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                <img
+                  className="lg:h-48 md:h-36 w-full object-cover object-center"
+                  src={product.attributes.image.data.attributes.name}
+                  alt="blog"
+                />
+                <div className="p-6">
+                  <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
                     {product.attributes.category}
-                  </h3>
-                  <h2 className="text-lg text-gray-900 font-medium title-font mb-4">
-                    {product.attributes.title}
                   </h2>
-                  {/* <p className="leading-relaxed text-base">
-                      {product.attributes.description}
-                    </p> */}
-                  <button
-                    onClick={() => goToProduct(product.attributes.slug)}
-                    className="flex items-center text-white justify-center bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-base mt-6"
-                  >
-                    Buy Now
-                  </button>
+                  <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
+                    {product.attributes.title}
+                  </h1>
+                  <div className="flex items-center flex-wrap ">
+                    <Link href={`/product/${product.attributes.slug}`}>
+                      <a className="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">
+                        Buy Now
+                        <svg
+                          className="w-4 h-4 ml-2"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M5 12h14"></path>
+                          <path d="M12 5l7 7-7 7"></path>
+                        </svg>
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 

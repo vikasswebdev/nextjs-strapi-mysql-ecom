@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Script from "next/script";
+import { useData } from "../store";
+import { useRouter } from "next/router";
 
-const Checkout = ({ cart }) => {
+const Checkout = () => {
   const [subtotal, setSubtotal] = useState(0);
+  const { state, dispatch } = useData();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state.cart.length === 0) {
+      router.push("/");
+    }
+  }, [state.cart.length]);
 
   const [form, setForm] = useState({
     name: "",
@@ -12,12 +22,11 @@ const Checkout = ({ cart }) => {
   });
 
   useEffect(() => {
-    let myTotal = 0;
-    for (let index = 0; index < cart.length; index++) {
-      const element = cart[index];
-      myTotal = myTotal + cart[index][1];
-    }
-    setSubtotal(myTotal);
+    const a = state.cart.reduce((acc, item) => {
+      return acc + item.quantity * item.price;
+    }, 0);
+
+    setSubtotal(a);
   }, []);
 
   const handleChange = (e) => {
@@ -34,7 +43,7 @@ const Checkout = ({ cart }) => {
         orderid: orderId,
         amount: subtotal,
         ...form,
-        cart: cart,
+        cart: state.cart,
       }),
     });
 
@@ -85,25 +94,43 @@ const Checkout = ({ cart }) => {
         <section className="text-black body-font relative">
           <div className="container px-5 py-24 mx-auto min-h-screen">
             <div className="flex flex-col w-full mb-12">
-              <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-black">
-                Checkout
-              </h1>
-              <h2 className="text-2xl font-medium">Cart</h2>
-              <div className="cart">
-                {cart.length
-                  ? `Your cart details are as follows:`
-                  : `Your cart is empty!`}
-              </div>
-              <ul className="list-decimal px-8">
-                {cart.map((item) => {
-                  return (
-                    <li key={item.id}>
-                      Product {item[0]} with a price of ₹{item[1]}
-                    </li>
-                  );
-                })}
-              </ul>
-              <div className="font-bold">Subtotal: {subtotal}</div>
+              <h2 className="text-2xl font-medium"> Checkout</h2>
+              {state.cart.length > 0 ? (
+                <div className="py-5">
+                  {state.cart.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex justify-between my-2 md:w-1/2 w-full"
+                    >
+                      <div className="flex flex-col">
+                        <img
+                          className="w-20 h-20"
+                          src={item.product.image.data.attributes.name}
+                          alt=""
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <div className="text-sm">{item.product.title}</div>
+                        <div className="text-xs text-gray-600">
+                          {item.quantity} x ₹ {item.price}
+                        </div>
+                      </div>
+                      <div className="text-sm">
+                        ₹ {item.quantity * item.price}
+                      </div>
+                    </div>
+                  ))}
+                  <div className="flex justify-between my-5 md:w-1/2 w-full border-2 p-2 rounded border-blue-500">
+                    <div className="text-lg">Total</div>
+                    <div className="text-lg">
+                      ₹{" "}
+                      {state.cart.reduce((acc, item) => {
+                        return acc + item.quantity * item.price;
+                      }, 0)}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
             </div>
             <div className=" ">
               <div className="flex flex-wrap -m-2">
