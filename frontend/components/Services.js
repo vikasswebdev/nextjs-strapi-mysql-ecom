@@ -6,10 +6,10 @@ const Services = () => {
       <div class="container px-5 py-10 mx-auto">
         <div class="flex flex-col text-center w-full mb-20">
           <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">
-            ROOF PARTY POLAROID
+            How our services works?
           </h2>
           <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900">
-            Master Cleanse Reliac Heirloom
+            Our Services
           </h1>
         </div>
         <div class="flex flex-wrap -m-4">
