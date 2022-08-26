@@ -27,7 +27,7 @@ const Navbar = () => {
     <>
       <div
         ref={cartRef}
-        className={`cart fixed right-0 h-screen md:w-1/2 w-full border-l-2 p-3 bg-white transform z-50 transition-transform  ${
+        className={`cart fixed right-0 h-screen md:w-1/2 w-full border-l-2 p-3 bg-white transform z-40 transition-transform ${
           state.isCartOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -92,45 +92,46 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      <header className="text-gray-600 border-b-2 border-gray-200 sticky top-0 bg-slate-200 body-font">
-        <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-          <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-            </svg>
-            <span className="ml-3 text-xl">MY SHOP</span>
-          </a>
-          <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-            <Link href="/">
-              <a className="mr-5 hover:text-gray-900">Home</a>
-            </Link>
-            <Link href="/about">
-              <a className="mr-5 hover:text-gray-900">About</a>
-            </Link>
-            <Link href="/products">
-              <a className="mr-5 hover:text-gray-900">Products</a>
-            </Link>
-            <Link href="/contact">
-              <a className="mr-5 hover:text-gray-900">Contact Us</a>
-            </Link>
+      <header className="text-gray-600 border-b-2 z-10 border-gray-200 sticky top-0 bg-white body-font">
+        <div className="flex flex-wrap px-5 py-3 flex-col md:flex-row items-center">
+          <div className="flex flex-wrap flex-col md:flex-row items-center">
+            <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+              </svg>
+              <span className="ml-3 text-xl">MY SHOP</span>
+            </a>
+            <nav className="flex flex-wrap items-center ml-10 text-base justify-center">
+              <Link href="/">
+                <a className="mr-5 hover:text-gray-900">Women</a>
+              </Link>
+              <Link href="/products">
+                <a className="mr-5 hover:text-gray-900">Men</a>
+              </Link>
+              <Link href="/about">
+                <a className="mr-5 hover:text-gray-900">Kids</a>
+              </Link>
+              <Link href="/contact">
+                <a className="mr-5 hover:text-gray-900">Tech</a>
+              </Link>
+            </nav>
+          </div>
+          <div className="md:ml-auto flex flex-wrap items-center text-base justify-center">
             <button onClick={toggleCart}>
               <div className="mr-5 hover:text-gray-900">
                 <p className="text-gray-900">Cart</p>
               </div>
             </button>
-          </nav>
-          {/* <button className="inline-flex items-center text-white bg-purple-500 border-0 py-1 px-3 focus:outline-none hover:bg-purple-300 rounded text-base mt-4 md:mt-0">
-            Login
-          </button> */}
+          </div>
         </div>
       </header>
     </>

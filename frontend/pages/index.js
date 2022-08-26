@@ -1,14 +1,11 @@
 import Grid from "../components/Grid";
 import Services from "../components/Services";
+import SlideBanner from "../components/atom/SlideBanner";
 
 export default function Home({ banner }) {
   return (
-    <div className="container mx-auto px-4 my-5">
-      <img
-        className="object-contain object-fill bg-gray-300 w-[100vw] h-[50vh]"
-        src="https://images.freekaamaal.com/store_desc_images/1516103172.jpg"
-        alt=""
-      />
+    <div className="mx-auto">
+      <SlideBanner />
       <Grid myhtml={banner && banner} />
       <Services />
     </div>
